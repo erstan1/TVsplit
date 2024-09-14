@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC/USD TradingView Split Screen (1min and 15min) - UTC+01:00</title>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; }
+        .chart-container { display: flex; height: 100%; }
+        #chart1, #chart2 { width: 50%; height: 100%; }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div id="chart1"></div>
+        <div id="chart2"></div>
+    </div>
+
+    <script>
+        const commonSettings = {
+            "symbol": "BITSTAMP:BTCUSD",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "hide_side_toolbar": false,
+            "allow_symbol_change": true,
+            "studies": [
+                "RSI@tv-basicstudies",
+                "Volume@tv-basicstudies",
+                "MACD@tv-basicstudies"
+            ],
+            "save_image": false,
+            "timezone": "Europe/Berlin"  // This corresponds to UTC+01:00
+        };
+
+        new TradingView.widget({
+            ...commonSettings,
+            "container_id": "chart1",
+            "autosize": true,
+            "interval": "1",
+            "range": "1D"
+        });
+
+        new TradingView.widget({
+            ...commonSettings,
+            "container_id": "chart2",
+            "autosize": true,
+            "interval": "15",
+            "range": "3D"
+        });
+    </script>
+</body>
+</html>
