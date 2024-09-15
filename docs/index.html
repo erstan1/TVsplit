@@ -1,7 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC/USD TradingView Split Screen (1min and 15min) - UTC+01:00 with Current Price</title>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; }
+        .chart-container { display: flex; height: 100%; }
+        #chart1, #chart2 { width: 50%; height: 100%; }
+    </style>
+</head>
 <body>
-<h1>Hello</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <div class="chart-container">
+        <div id="chart1"></div>
+        <div id="chart2"></div>
+    </div>
+
+    <script>
+        const commonSettings = {
+            "symbol": "BITSTAMP:BTCUSD",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "hide_side_toolbar": false,
+            "allow_symbol_change": true,
+            "studies": [
+                "RSI@tv-basicstudies",
+                "MACD@tv-basicstudies"
+            ],
+            "save_image": false,
+            "timezone": "Europe/Berlin",  // This corresponds to UTC+01:00
+            "overrides": {
+                "paneProperties.background": "#131722",
+                "paneProperties.vertGridProperties.color": "#363c4e",
+                "paneProperties.horzGridProperties.color": "#363c4e",
+                "symbolWatermarkProperties.transparency": 90,
+                "scalesProperties.textColor" : "#AAA",
+                "mainSeriesProperties.showPriceLine": true,
+                "mainSeriesProperties.priceLineWidth": 2,
+                "mainSeriesProperties.priceLineColor": "#2196F3",
+                "mainSeriesProperties.statusViewStyle.fontSize": 16,
+                "mainSeriesProperties.statusViewStyle.textColor": "#FFFFFF"
+            },
+            "studies_overrides": {
+                "volume.volume.color.0": "#00FFFF",
+                "volume.volume.color.1": "#0000FF",
+                "volume.volume.transparency": 70,
+            }
+        };
+
+        function createWidget(containerId, interval, range) {
+            return new TradingView.widget({
+                ...commonSettings,
+                "container_id": containerId,
+                "autosize": true,
+                "interval": interval,
+                "range": range,
+                "details": true,
+                "show_popup_button": true,
+                "popup_width": "1000",
+                "popup_height": "650"
+            });
+        }
+
+        const chart1 = createWidget("chart1", "1", "1D");
+        const chart2 = createWidget("chart2", "15", "3D");
+    </script>
 </body>
 </html>
